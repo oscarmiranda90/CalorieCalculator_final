@@ -11,7 +11,7 @@ def formula():
     global calculate_btn
     global button_frame
     global root
-    root.geometry("484x494")
+    root.geometry("484x497")
     button_frame.destroy()
     calculate_btn.destroy()
     button_frame = LabelFrame(root)
@@ -48,11 +48,10 @@ def formula():
     carbs_output.config(text=carbs_string)
     fat_output.config(text=fat_string)
 
-
     # create a new frame for Fitness info ( Deficit and Surplus )
     training_frame = LabelFrame(root, text="Fitness info", height=83, width=50)
-    training_frame.grid(row=5, column=0, ipadx=217, ipady=20, sticky=NSEW)
-    # display fitness info depending of the GOAL
+    training_frame.grid(row=5, column=0, ipadx=217, ipady=20, sticky=W)
+    # display fitness info depending on the GOAL
     if goalvar.get() == 1:
         deficit_calories = (str(round(calories) - 500))
         deficit_info = ("You need to eat " + deficit_calories + " Calories Approx. to Lose Weight")
@@ -87,25 +86,27 @@ def formula():
                                                                           "having energy during training."
         fatsur_calories_info = "You need to eat " + fatsur_calories + "g. of Fat to have a healthy hormone balance " \
                                                                       "while gaining weight and muscle."
-        extra_info= "It's important that you eat HIGH QUALITY food to maximize Muscle gain and minimize Body Fat gain."
+        extra_info = "It's important that you eat HIGH QUALITY food to maximize Muscle gain and minimize Body Fat gain!"
         protein_deficit_frame = Label(training_frame, text=proteinsur_calories_info, font=("arial", 8))
         protein_deficit_frame.grid(row=1, column=0, sticky=W)
         carbs_deficit_frame = Label(training_frame, text=carbssur_calories_info, font=("arial", 8))
         carbs_deficit_frame.grid(row=2, column=0, sticky=W)
         fat_deficit_frame = Label(training_frame, text=fatsur_calories_info, font=("arial", 8))
         fat_deficit_frame.grid(row=3, column=0, sticky=W)
-        extra_info_frame = Label(training_frame, text=extra_info, font=("arial", 8))
+        extra_info_frame = Label(training_frame, text=extra_info, font=("arial", 7, "bold", "italic"))
         extra_info_frame.grid(row=4, column=0, sticky=W)
 
     training_frame.grid_propagate(False)
 
+# creating the app root
+
 
 root = Tk()
 root.title("Calorie Calculator By Oscar Crescente")
-root.geometry("484x370")
+root.geometry("484x375")
 root.config(bg="black")
 
-# create main frame and textbooks
+# create main frame and text entries
 main_frame = LabelFrame(root, text="Personal Info")
 main_frame.grid(row=0, column=0, sticky=W, ipady=15)
 name_input = Entry(main_frame, width=20)
@@ -119,6 +120,18 @@ weight_input.grid(row=1, column=3)
 height_input = Entry(main_frame, width=5)
 height_input.insert(END, "0")
 height_input.grid(row=2, column=3)
+
+# create text box labels
+title_label = Label(main_frame, text="Please input your Info!")
+title_label.grid(row=0, column=0, sticky=NW)
+name_label = Label(main_frame, text="Full Name")
+name_label.grid(row=1, column=0, sticky=W)
+age_label = Label(main_frame, text="Age")
+age_label.grid(row=2, column=0, sticky=W)
+weight_label = Label(main_frame, text="Weight")
+weight_label.grid(row=1, column=2)
+height_label = Label(main_frame, text="Height")
+height_label.grid(row=2, column=2)
 
 # radio buttons for genre and frame for genre
 sex = IntVar()
@@ -134,7 +147,7 @@ sex_female.grid(row=0, column=5, sticky=W)
 activity_frame = LabelFrame(root, text="Activity Level")
 activity_frame.grid(row=1, column=0, sticky=W)
 e = StringVar()
-e.set(1.2)
+e.set("1.2")
 sedentary = Radiobutton(activity_frame, text="Sedentary - No Exercise", variable=e, value=1.2)
 sedentary.grid(row=6, column=0, sticky=W)
 light = Radiobutton(activity_frame, text="Light Activity / 1-3 times/week", variable=e, value=1.375)
@@ -151,7 +164,7 @@ intense.grid(row=10, column=0, sticky=W)
 goalvar = IntVar()
 goalvar.set(0)
 goal_frame = LabelFrame(root)
-goal_frame.grid(row=7, column=0, sticky=NSEW)
+goal_frame.grid(row=7, column=0, ipady=2,ipadx=129, sticky=W)
 goal_label = Label(goal_frame, text="Goal: ")
 goal_label.grid(row=0, column=0)
 goal_lose = Radiobutton(goal_frame, text="Gain Muscle", variable=goalvar, value=0)
@@ -159,20 +172,8 @@ goal_lose.grid(row=0, column=1)
 goal_gain = Radiobutton(goal_frame, text="Lose Weight", variable=goalvar, value=1)
 goal_gain.grid(row=0, column=2)
 
-# create text box labels
-title_label = Label(main_frame, text="Please input your Info!")
-title_label.grid(row=0, column=0, sticky=NW)
-name_label = Label(main_frame, text="Full Name")
-name_label.grid(row=1, column=0, sticky=W)
-age_label = Label(main_frame, text="Age")
-age_label.grid(row=2, column=0, sticky=W)
-weight_label = Label(main_frame, text="Weight")
-weight_label.grid(row=1, column=2)
-height_label = Label(main_frame, text="Height")
-height_label.grid(row=2, column=2)
 
 # Height Type and radio buttons
-
 
 w = IntVar()
 weight_kilos = Radiobutton(main_frame, text="Kilos", variable=w, value=0)
@@ -191,7 +192,7 @@ height_type2.grid(row=2, column=5, sticky=W)
 
 # -------------------- OUTPUT FRAME --------------------
 output_frame = LabelFrame(root, text="Calorie Calculation")
-output_frame.grid(row=1, column=0,padx=241, ipadx=121, sticky=NSEW)
+output_frame.grid(row=1, column=0, padx=241, ipadx=121, sticky=NSEW)
 
 # Labels for text output BMR, TOTAL CALORIES AND MACROS
 bmr_label = Label(output_frame, text="BMR", font=("arial", 8, "underline"))
@@ -217,10 +218,10 @@ bmr_output = Label(output_frame)
 bmr_output.grid(row=7, column=5, sticky=W)
 output_frame.grid_propagate(False)
 
-# Create Buttons and button frame
+# Create calculate Button and button frame
 button_frame = LabelFrame(root)
-button_frame.grid(row=8, column=0, sticky=NSEW)
+button_frame.grid(row=8, column=0, ipady=217, sticky=W)
 calculate_btn = Button(button_frame, text="Calculate!", command=formula, height=3, pady=8)
 calculate_btn.grid(row=8, column=5, ipadx=209)
-#root.resizable(False, False)
+# root.resizable(False, False)
 root.mainloop()
