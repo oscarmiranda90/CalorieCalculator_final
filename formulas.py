@@ -12,7 +12,7 @@ def weight_conversion(weight, r):
     if r == 0:
         return float(weight)
     else:
-        return float(weight * 2.204)
+        return float(weight / 2.204)
 
 
 def height_conversion(height, r2):
